@@ -1,8 +1,10 @@
 import "package:ctrl_alt_tv/services/http_service.dart";
-import "package:ctrl_alt_tv/widgets/center_controls_widget.dart";
-import "package:ctrl_alt_tv/widgets/channel_controls_widget.dart";
-import "package:ctrl_alt_tv/widgets/power_source_control_widget.dart";
-import "package:ctrl_alt_tv/widgets/volume_controls_widget.dart";
+import "package:ctrl_alt_tv/widgets/center_control.dart";
+import "package:ctrl_alt_tv/widgets/channel_control.dart";
+import "package:ctrl_alt_tv/widgets/home_row.dart";
+import "package:ctrl_alt_tv/widgets/mute_row.dart";
+import "package:ctrl_alt_tv/widgets/power_source_control.dart";
+import "package:ctrl_alt_tv/widgets/volume_control.dart";
 import "package:flutter/material.dart";
 
 class HomePage extends StatelessWidget{
@@ -18,10 +20,10 @@ class HomePage extends StatelessWidget{
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 45.0,
-                bottom: 10.0,
-                left: 30.0,
-                right: 30.0
+                top: 50.0,
+                bottom: 0.0,
+                left: 40.0,
+                right: 40.0
               ),
               child: PowerSourceControlWidget(
                   onPowerPressed: () {
@@ -36,7 +38,7 @@ class HomePage extends StatelessWidget{
             Center(
               child:SizedBox(
                 width: 300,
-                height: 220,
+                height: 300,
                 child: Column(
                   children: [
                     CenterControlsWidget(),
@@ -46,21 +48,64 @@ class HomePage extends StatelessWidget{
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 30,
-                right: 30
+                left: 40,
+                right: 40
               ),
               child: Row(
                 children: [
                   VolumeControlsWidget(
-                      onIncreasePressed: () => print("Vol++"),
-                      onDecreasePressed: () => print("Vol--")
+                      onIncreasePressed: () {
+                        print("Increasing the volume");
+                        HttpService.sendRequest("$scheme://$esp32IP/command?key=VOL_UP");
+                      },
+                      onDecreasePressed: () {
+                        print("Decreasing the volume");
+                        HttpService.sendRequest("$scheme://$esp32IP/command?key=VOL_DOWN");
+                      }
                   ),
                   Expanded(
-                    child: Placeholder(),
+                    child: Column(
+                      children: [
+                        HomeRow(
+                          onBackPressed: () {
+                            print("Going back");
+                            HttpService.sendRequest("$scheme://$esp32IP/command?key=BACK");
+                          },
+                          onHomePressed: () {
+                            print("Going home");
+                            HttpService.sendRequest("$scheme://$esp32IP/command?key=HOME");
+                          },
+                          onMenuPressed: () {
+                            print("Opening the menu");
+                            HttpService.sendRequest("$scheme://$esp32IP/command?key=MENU");
+                          },
+                        ),
+                        MuteRow(
+                            onMutePressed: () {
+                              print("Muting");
+                              HttpService.sendRequest("$scheme://$esp32IP/command?key=MUTE");
+                            },
+                            onPlayPausePressed: () {
+                              print("Pausing");
+                              HttpService.sendRequest("$scheme://$esp32IP/command?key=PAUSE");
+                            },
+                            onExitPressed: () {
+                              print("Exiting");
+                              HttpService.sendRequest("$scheme://$esp32IP/command?key=EXIT");
+                            }
+                            )
+                      ],
+                    ),
                   ),
                   ChannelControlsWidget(
-                      onIncreasePressed: () => print("CH++"),
-                      onDecreasePressed: () => print("CH--")
+                      onIncreasePressed: () {
+                        print("Increasing the channel");
+                        HttpService.sendRequest("$scheme://$esp32IP/command?key=CH_UP");
+                      },
+                      onDecreasePressed: () {
+                        print("Decreasing the channel");
+                        HttpService.sendRequest("$scheme://$esp32IP/command?key=CH_DOWN");
+                      }
                   )
                 ]
               ),

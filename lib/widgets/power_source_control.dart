@@ -17,7 +17,7 @@ class PowerSourceControlWidget extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: Colors.deepPurple,
+              color: Colors.redAccent,
               shape: BoxShape.circle
           ),
           child: IconButton(

@@ -1,6 +1,6 @@
 import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:flutter/material.dart";
-import "../widgets/button_widget.dart";
+import "../widgets/button.dart";
 
 class CenterControlsWidget extends StatelessWidget {
   const CenterControlsWidget({super.key});
@@ -13,8 +13,8 @@ class CenterControlsWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          width: 200,
-          height: 200,
+          width: 280,
+          height: 280,
           decoration: BoxDecoration(
             color: Colors.deepPurple,
             shape: BoxShape.circle,
@@ -27,7 +27,8 @@ class CenterControlsWidget extends StatelessWidget {
               onPressed: () {
                 print("Up");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=UP");
-              }
+              },
+            backgroundColor: Colors.deepPurple,
           ),
         ),
         Positioned(
@@ -37,7 +38,8 @@ class CenterControlsWidget extends StatelessWidget {
               onPressed: () {
                 print("Down");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=DOWN");
-              }
+              },
+            backgroundColor: Colors.deepPurple,
           ),
         ),
         Positioned(
@@ -47,7 +49,8 @@ class CenterControlsWidget extends StatelessWidget {
               onPressed: () {
                 print("Left");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=LEFT");
-              }
+              },
+            backgroundColor: Colors.deepPurple,
           ),
         ),
         Positioned(
@@ -57,7 +60,8 @@ class CenterControlsWidget extends StatelessWidget {
               onPressed: () {
                 print("Right");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=RIGHT");
-              }
+              },
+            backgroundColor: Colors.deepPurple,
           ),
         ),
         Container(

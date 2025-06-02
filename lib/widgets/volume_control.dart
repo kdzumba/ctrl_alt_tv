@@ -1,4 +1,4 @@
-import "package:ctrl_alt_tv/widgets/button.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
 import "package:flutter/material.dart";
 
 class VolumeControlsWidget extends StatelessWidget {
@@ -15,23 +15,19 @@ class VolumeControlsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 32, 35,42),
+        color: Color(0xFFA169d1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.white30,
-          width: 2.0
-        )
       ),
       child: Column(
         children: [
-          ButtonWidget(icon: Icons.add, onPressed: onIncreasePressed, backgroundColor: Color.fromARGB(255, 32, 35,42),),
+          CtrlIconButton(icon: Icons.add, onPressed: onIncreasePressed),
           Text("VOL",
             style: TextStyle(
               color: Colors.white,
               fontSize: 18
             ),
           ),
-          ButtonWidget(icon: Icons.remove, onPressed: onDecreasePressed, backgroundColor: Color.fromARGB(255, 32, 35,42))
+          CtrlIconButton(icon: Icons.remove, onPressed: onDecreasePressed)
         ],
       ),
     );

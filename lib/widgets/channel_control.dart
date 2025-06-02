@@ -1,4 +1,4 @@
-import "package:ctrl_alt_tv/widgets/button.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
 import "package:flutter/material.dart";
 
 class ChannelControlsWidget extends StatelessWidget {
@@ -15,31 +15,24 @@ class ChannelControlsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 32, 35, 42),
+        color: Color(0xFFA169D1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.white30,
-          width: 2.0
-        )
       ),
       child: Column(
         children: [
-          ButtonWidget(
+          CtrlIconButton(
             icon: Icons.add,
             onPressed: onIncreasePressed,
-            backgroundColor: Color.fromARGB(255, 32, 35, 42),
           ),
-
           Text("CH",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 18
             ),
           ),
-          ButtonWidget(
+          CtrlIconButton(
             icon: Icons.remove,
             onPressed: onDecreasePressed,
-            backgroundColor: Color.fromARGB(255, 32, 35, 42),
           )
         ],
       )

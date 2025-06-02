@@ -1,4 +1,4 @@
-import "package:ctrl_alt_tv/widgets/button.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
 import "package:flutter/material.dart";
 
 class HomeRow extends StatelessWidget {
@@ -26,16 +26,11 @@ class HomeRow extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Colors.white30
-                ),
                 borderRadius: BorderRadius.circular(12)
               ),
-              child: ButtonWidget(
+              child: CtrlIconButton(
                   icon: Icons.keyboard_backspace,
                   onPressed: onBackPressed,
-                  backgroundColor: Color.fromARGB(255, 32, 35, 42)
               ),
             ),
           ),
@@ -49,16 +44,11 @@ class HomeRow extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Colors.white30
-                ),
                 borderRadius: BorderRadius.circular(12)
               ),
-              child: ButtonWidget(
+              child: CtrlIconButton(
                   icon: Icons.home,
                   onPressed: onHomePressed,
-                  backgroundColor: Color.fromARGB(255, 32, 35, 42)
               ),
             ),
           ),
@@ -71,16 +61,11 @@ class HomeRow extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: Colors.white30
-                ),
                 borderRadius: BorderRadius.circular(12)
               ),
-              child: ButtonWidget(
+              child: CtrlIconButton(
                   icon: Icons.menu,
                   onPressed: onMenuPressed,
-                  backgroundColor: Color.fromARGB(255, 32, 35, 42)
               ),
             ),
           ),

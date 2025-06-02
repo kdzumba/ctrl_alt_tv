@@ -17,7 +17,7 @@ class PowerSourceControlWidget extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: Color(0xFFEE5454),
               shape: BoxShape.circle
           ),
           child: IconButton(
@@ -28,7 +28,7 @@ class PowerSourceControlWidget extends StatelessWidget {
         ),
         Container(
             decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Color(0xFF1AA91F),
                 shape: BoxShape.circle
             ),
             child: IconButton(

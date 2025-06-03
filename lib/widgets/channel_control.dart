@@ -16,12 +16,12 @@ class ChannelControlsWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFA169D1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: Column(
         children: [
           CtrlIconButton(
-            icon: Icons.add,
+            icon: Icon(Icons.add, color: Colors.white),
             onPressed: onIncreasePressed,
           ),
           Text("CH",
@@ -31,7 +31,7 @@ class ChannelControlsWidget extends StatelessWidget {
             ),
           ),
           CtrlIconButton(
-            icon: Icons.remove,
+            icon: Icon(Icons.remove, color: Colors.white,),
             onPressed: onDecreasePressed,
           )
         ],

@@ -24,14 +24,9 @@ class HomeRow extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: 7,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              child: CtrlIconButton(
-                  icon: Icons.keyboard_backspace,
-                  onPressed: onBackPressed,
-              ),
+            child: CtrlIconButton(
+                icon: Icon(Icons.keyboard_backspace, color: Colors.white),
+                onPressed: onBackPressed,
             ),
           ),
         ),
@@ -42,14 +37,9 @@ class HomeRow extends StatelessWidget {
               left: 7,
               right: 7
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              child: CtrlIconButton(
-                  icon: Icons.home,
-                  onPressed: onHomePressed,
-              ),
+            child: CtrlIconButton(
+                icon: Icon(Icons.home, color: Colors.white),
+                onPressed: onHomePressed,
             ),
           ),
         ),
@@ -59,14 +49,9 @@ class HomeRow extends StatelessWidget {
             padding: const EdgeInsets.only(
               right: 7
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              child: CtrlIconButton(
-                  icon: Icons.menu,
-                  onPressed: onMenuPressed,
-              ),
+            child: CtrlIconButton(
+                icon: Icon(Icons.menu, color: Colors.white),
+                onPressed: onMenuPressed,
             ),
           ),
         )

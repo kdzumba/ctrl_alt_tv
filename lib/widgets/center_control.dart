@@ -13,17 +13,17 @@ class CenterControlsWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          width: 280,
-          height: 280,
+          width: 270,
+          height: 270,
           decoration: BoxDecoration(
             color: Color(0xFFA169D1),
             shape: BoxShape.circle,
           ),
         ),
         Positioned(
-          top: 0,
+          top: 2,
           child: CtrlIconButton(
-              icon: Icons.keyboard_arrow_up,
+              icon: Icon(Icons.keyboard_arrow_up, color: Colors.white,),
               onPressed: () {
                 print("Up");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=UP");
@@ -31,9 +31,9 @@ class CenterControlsWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 2,
           child: CtrlIconButton(
-              icon: Icons.keyboard_arrow_down,
+              icon: Icon(Icons.keyboard_arrow_down, color: Colors.white),
               onPressed: () {
                 print("Down");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=DOWN");
@@ -41,9 +41,9 @@ class CenterControlsWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 0,
+          left: 2,
           child: CtrlIconButton(
-              icon: Icons.keyboard_arrow_left,
+              icon: Icon(Icons.keyboard_arrow_left, color: Colors.white),
               onPressed: () {
                 print("Left");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=LEFT");
@@ -51,9 +51,9 @@ class CenterControlsWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 0,
+          right: 2,
           child: CtrlIconButton(
-              icon: Icons.keyboard_arrow_right,
+              icon: Icon(Icons.keyboard_arrow_right, color: Colors.white),
               onPressed: () {
                 print("Right");
                 HttpService.sendRequest("$scheme://$esp32IP/command?key=RIGHT");
@@ -76,14 +76,14 @@ class CenterControlsWidget extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
-                    padding: EdgeInsets.all(24),
+                    padding: EdgeInsets.all(30),
                   backgroundColor: Color(0xFFA169D1)
                 ),
                 child: Text(
                     "OK",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18
+                        fontSize: 24
                     )
                 )
             )

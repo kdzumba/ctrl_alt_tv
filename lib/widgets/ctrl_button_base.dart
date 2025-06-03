@@ -14,7 +14,7 @@ class CtrlButtonBase extends StatelessWidget {
     required this.child,
     this.backgroundColor = const Color(0xFFA169D1),
     this.padding = 0.0,
-    this.borderRadius = const BorderRadius.all(Radius.circular(12)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(3)),
     this.shape = BoxShape.rectangle,
     this.border,
     this.boxShadow

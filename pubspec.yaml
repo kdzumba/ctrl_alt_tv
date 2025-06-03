@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.9
 
   provider: ^6.1.2
   cupertino_icons: ^1.0.8
@@ -26,4 +27,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/icons/netflix-3.svg
+    - assets/icons/icons8-youtube-music.svg
+    - assets/icons/amazon-prime-video-1.svg
+    - assets/icons/youtube-6.svg
+    - assets/icons/showmax-logo-vector.svg
+    - assets/icons/dstv-logo.svg

@@ -30,14 +30,9 @@ class MuteRow extends StatelessWidget {
               top: 7,
               right: 7
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: CtrlIconButton(
-                  icon: Icons.pause,
-                  onPressed: onPlayPausePressed,
-              ),
+            child: CtrlIconButton(
+                icon: Icon(Icons.pause, color: Colors.white),
+                onPressed: onPlayPausePressed,
             ),
           ),
         ),
@@ -47,14 +42,9 @@ class MuteRow extends StatelessWidget {
               top: 7,
               right: 7
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: CtrlIconButton(
-                  icon: FontAwesomeIcons.volumeMute,
-                  onPressed: onMutePressed,
-              )
+            child: CtrlIconButton(
+                icon: Icon(FontAwesomeIcons.volumeMute, color: Colors.white),
+                onPressed: onMutePressed,
             )
           )
         ),

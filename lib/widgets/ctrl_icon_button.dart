@@ -2,7 +2,7 @@ import "package:ctrl_alt_tv/widgets/ctrl_button_base.dart";
 import "package:flutter/material.dart";
 
 class CtrlIconButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final VoidCallback onPressed;
   final Color? backgroundColor;
   final BoxShape? shape;
@@ -25,7 +25,7 @@ class CtrlIconButton extends StatelessWidget {
         backgroundColor: backgroundColor ?? const Color(0xFFA169D1),
         child: IconButton(
           onPressed: onPressed,
-          icon: Icon(icon, color: iconColor ?? Colors.white),
+          icon: icon,
           iconSize: iconSize,
         )
     );

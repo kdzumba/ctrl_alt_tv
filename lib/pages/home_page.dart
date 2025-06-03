@@ -1,6 +1,7 @@
 import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:ctrl_alt_tv/widgets/center_control.dart";
 import "package:ctrl_alt_tv/widgets/channel_control.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_streaming_controls.dart";
 import "package:ctrl_alt_tv/widgets/home_row.dart";
 import "package:ctrl_alt_tv/widgets/mute_row.dart";
 import "package:ctrl_alt_tv/widgets/power_source_control.dart";
@@ -22,8 +23,8 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.only(
                 top: 50.0,
                 bottom: 0.0,
-                left: 40.0,
-                right: 40.0
+                left: 20.0,
+                right: 20.0
               ),
               child: PowerSourceControlWidget(
                   onPowerPressed: () {
@@ -37,8 +38,8 @@ class HomePage extends StatelessWidget{
             ),
             Center(
               child:SizedBox(
-                width: 300,
-                height: 300,
+                width: 285,
+                height: 275,
                 child: Column(
                   children: [
                     CenterControlsWidget(),
@@ -48,8 +49,8 @@ class HomePage extends StatelessWidget{
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 40,
-                right: 40
+                left: 20,
+                right: 20
               ),
               child: Row(
                 children: [
@@ -108,6 +109,36 @@ class HomePage extends StatelessWidget{
                       }
                   )
                 ]
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 7
+              ),
+              child: CtrlStreamingControls(
+                onNetflixPressed: () {
+                  print("Switching over to Netflix...");
+                  HttpService.sendRequest("$scheme://$esp32IP/command?key=NETFLIX");
+                  },
+                onYoutubePressed: () {
+                  print("Switching over to YouTube...");
+                  HttpService.sendRequest("$scheme://$esp32IP/command?key=YOUTUBE");
+                },
+                onPrimeVideoPressed: () {
+                  print("Switching over to Amazon Prime...");
+                  HttpService.sendRequest("$scheme://$esp32IP/command?key=PRIME");
+                },
+                onYoutubeMusicPressed: ()  => print("Youtube Music pressed"),
+                onShowmaxPressed: () {
+                  print("Switching to showmax...");
+                  HttpService.sendRequest("$scheme://$esp32IP/command?key=SHOWMAX");
+                },
+                onDstvPressed: () {
+                  print("Switching to Dstv...");
+                  HttpService.sendRequest("$scheme://$esp32IP/command?key=DSTV");
+                },
               ),
             )
           ],

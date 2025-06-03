@@ -16,18 +16,24 @@ class VolumeControlsWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFA169d1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: Column(
         children: [
-          CtrlIconButton(icon: Icons.add, onPressed: onIncreasePressed),
+          CtrlIconButton(
+              icon: Icon(Icons.add, color: Colors.white),
+              onPressed: onIncreasePressed
+          ),
           Text("VOL",
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 18
+                color: Colors.white,
+                fontSize: 18
             ),
           ),
-          CtrlIconButton(icon: Icons.remove, onPressed: onDecreasePressed)
+          CtrlIconButton(
+              icon: Icon(Icons.remove, color: Colors.white),
+              onPressed: onDecreasePressed
+          )
         ],
       ),
     );

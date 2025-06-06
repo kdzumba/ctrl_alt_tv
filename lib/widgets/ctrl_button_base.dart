@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 class CtrlButtonBase extends StatelessWidget {
   final Widget child;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double padding;
   final BorderRadius borderRadius;
   final BoxShape shape;
@@ -12,7 +12,7 @@ class CtrlButtonBase extends StatelessWidget {
   const CtrlButtonBase({
     super.key,
     required this.child,
-    this.backgroundColor = const Color(0xFF262229),
+    this.backgroundColor,
     this.padding = 0.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(3)),
     this.shape = BoxShape.rectangle,
@@ -22,10 +22,12 @@ class CtrlButtonBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color effectiveBackgroundColor = backgroundColor ?? Theme.of(context).primaryColor;
+
     return Container(
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: effectiveBackgroundColor,
         shape: shape,
         borderRadius: shape == BoxShape.circle ? null : borderRadius,
         border: border,

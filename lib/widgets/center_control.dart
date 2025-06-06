@@ -1,4 +1,5 @@
 import "package:ctrl_alt_tv/services/http_service.dart";
+import "package:ctrl_alt_tv/theme/app_theme.dart";
 import "package:flutter/material.dart";
 import "../widgets/ctrl_icon_button.dart";
 
@@ -77,14 +78,11 @@ class CenterControlsWidget extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(30),
-                  backgroundColor: Color(0xFF262229)
+                  backgroundColor: AppTheme.primaryBackgroundColor
                 ),
                 child: Text(
                     "OK",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24
-                    )
+                    style: Theme.of(context).textTheme.displayMedium
                 )
             )
         )

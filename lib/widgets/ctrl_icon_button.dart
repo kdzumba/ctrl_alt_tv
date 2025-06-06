@@ -22,7 +22,7 @@ class CtrlIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CtrlButtonBase(
-        backgroundColor: backgroundColor ?? const Color(0xFF262229),
+        backgroundColor: backgroundColor,
         child: IconButton(
           onPressed: onPressed,
           icon: icon,

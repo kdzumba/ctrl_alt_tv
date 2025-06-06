@@ -5,16 +5,14 @@ class CtrlTextButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color? backgroundColor;
-  final Color? textColor;
-  final double fontSize;
+  final TextStyle? style;
 
   const CtrlTextButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor,
-    this.textColor,
-    this.fontSize = 18
+    this.style
   });
 
   @override
@@ -24,10 +22,7 @@ class CtrlTextButton extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
                 text,
-                style: TextStyle(
-                    color: textColor ?? Colors.white,
-                    fontSize: fontSize
-                )
+                style: style ?? Theme.of(context).textTheme.displaySmall
             )
         )
     );

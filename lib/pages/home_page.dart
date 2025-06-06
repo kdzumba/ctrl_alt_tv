@@ -1,6 +1,7 @@
 import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:ctrl_alt_tv/widgets/center_control.dart";
 import "package:ctrl_alt_tv/widgets/channel_control.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
 import "package:ctrl_alt_tv/widgets/ctrl_streaming_controls.dart";
 import "package:ctrl_alt_tv/widgets/home_row.dart";
 import "package:ctrl_alt_tv/widgets/mute_row.dart";
@@ -16,15 +17,15 @@ class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2A2D59),
+      backgroundColor: Colors.black,
       body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(
                 top: 50.0,
                 bottom: 0.0,
-                left: 20.0,
-                right: 20.0
+                left: 10.0,
+                right: 10.0
               ),
               child: PowerSourceControlWidget(
                   onPowerPressed: () {
@@ -47,10 +48,61 @@ class HomePage extends StatelessWidget{
                 ),
               ),
             ),
+            Row(
+              children: [
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, bottom: 8),
+                  child: CtrlIconButton(icon: Icon(Icons.search, color: Colors.white), onPressed: () async {
+                    final searchQuery = await showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        String input = "";
+                        return AlertDialog(
+                          backgroundColor: Colors.grey[900],
+                          title: const Text("Search", style: TextStyle(color: Colors.white)),
+                          content: TextField(
+                            autofocus: true,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: const InputDecoration(
+                              hintText: "Enter search phrase",
+                              hintStyle: TextStyle(color: Colors.white54),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              input = value;
+                            },
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            TextButton(
+                              child: const Text("Search"),
+                              onPressed: () => Navigator.pop(context, input),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+                    if (searchQuery != null && searchQuery.trim().isNotEmpty) {
+                      print("User searched: $searchQuery");
+                      // Optionally send to ESP32:
+                      // HttpService.sendRequest("$scheme://$esp32IP/search?query=${Uri.encodeComponent(searchQuery)}");
+                    }
+                  }
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 20,
-                right: 20
+                left: 10,
+                right: 10
               ),
               child: Row(
                 children: [
@@ -113,8 +165,8 @@ class HomePage extends StatelessWidget{
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
+                left: 10,
+                right: 10,
                 top: 7
               ),
               child: CtrlStreamingControls(

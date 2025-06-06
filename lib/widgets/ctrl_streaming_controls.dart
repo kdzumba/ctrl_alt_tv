@@ -74,7 +74,7 @@ class CtrlStreamingControls extends StatelessWidget{
                     onPressed: onYoutubeMusicPressed,
                     icon: SvgPicture.asset(
                       "assets/icons/icons8-youtube-music.svg",
-                      height: 44,
+                      height: 32,
                       width: 44,
                     ),
                   ),

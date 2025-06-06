@@ -16,7 +16,7 @@ class CenterControlsWidget extends StatelessWidget {
           width: 270,
           height: 270,
           decoration: BoxDecoration(
-            color: Color(0xFFA169D1),
+            color: Color(0xFF262229),
             shape: BoxShape.circle,
           ),
         ),
@@ -77,7 +77,7 @@ class CenterControlsWidget extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(30),
-                  backgroundColor: Color(0xFFA169D1)
+                  backgroundColor: Color(0xFF262229)
                 ),
                 child: Text(
                     "OK",

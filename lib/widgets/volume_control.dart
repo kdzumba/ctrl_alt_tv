@@ -15,7 +15,7 @@ class VolumeControlsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFA169d1),
+        color: Color(0xFF262229),
         borderRadius: BorderRadius.circular(3),
       ),
       child: Column(

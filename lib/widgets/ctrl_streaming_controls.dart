@@ -1,3 +1,4 @@
+import "package:ctrl_alt_tv/theme/app_spacing.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/flutter_svg.dart";
 
@@ -23,6 +24,8 @@ class CtrlStreamingControls extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final spacing = Theme.of(context).extension<AppSpacing>()!;
+
     return Column(
       children: [
         Row(
@@ -30,8 +33,8 @@ class CtrlStreamingControls extends StatelessWidget{
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 7
+                padding: EdgeInsets.only(
+                  right: spacing.buttonSpacing
                 ),
                 child: CtrlIconButton(
                   backgroundColor: Colors.white,
@@ -58,16 +61,16 @@ class CtrlStreamingControls extends StatelessWidget{
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: 7
+          padding: EdgeInsets.only(
+            top: spacing.buttonSpacing
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center ,
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 7
+                  padding: EdgeInsets.only(
+                    right: spacing.buttonSpacing
                   ),
                   child: CtrlIconButton(
                     backgroundColor: Colors.white,
@@ -95,16 +98,16 @@ class CtrlStreamingControls extends StatelessWidget{
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            top: 7
+          padding: EdgeInsets.only(
+            top: spacing.buttonSpacing
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center ,
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 7
+                  padding: EdgeInsets.only(
+                    right: spacing.buttonSpacing
                   ),
                   child: CtrlIconButton(
                     backgroundColor: Colors.white,

@@ -9,6 +9,8 @@ import "package:ctrl_alt_tv/widgets/power_source_control.dart";
 import "package:ctrl_alt_tv/widgets/volume_control.dart";
 import "package:flutter/material.dart";
 
+import "../theme/app_spacing.dart";
+
 class HomePage extends StatelessWidget{
   const HomePage({super.key});
   final esp32IP = "192.168.4.1";
@@ -16,16 +18,18 @@ class HomePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final spacing = Theme.of(context).extension<AppSpacing>()!;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 top: 50.0,
                 bottom: 0.0,
-                left: 10.0,
-                right: 10.0
+                left: spacing.appMarginSpacing,
+                right: spacing.appMarginSpacing
               ),
               child: PowerSourceControlWidget(
                   onPowerPressed: () {
@@ -100,9 +104,9 @@ class HomePage extends StatelessWidget{
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10
+              padding: EdgeInsets.only(
+                left: spacing.appMarginSpacing,
+                right: spacing.appMarginSpacing
               ),
               child: Row(
                 children: [
@@ -164,10 +168,10 @@ class HomePage extends StatelessWidget{
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-                top: 7
+              padding: EdgeInsets.only(
+                left: spacing.appMarginSpacing,
+                right: spacing.appMarginSpacing,
+                top: spacing.buttonSpacing
               ),
               child: CtrlStreamingControls(
                 onNetflixPressed: () {

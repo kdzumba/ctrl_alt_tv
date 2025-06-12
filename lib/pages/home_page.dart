@@ -10,6 +10,7 @@ import "package:ctrl_alt_tv/widgets/power_source_control.dart";
 import "package:ctrl_alt_tv/widgets/volume_control.dart";
 import "package:flutter/material.dart";
 
+import "../models/search_context.dart";
 import "../theme/app_spacing.dart";
 
 class HomePage extends StatefulWidget {
@@ -23,18 +24,24 @@ class _HomePageState extends State<HomePage> {
   final esp32IP = "192.168.4.1";
   final scheme = "http";
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
-
-  String? currentSearchContext;
+  SearchContext searchContext = SearchContext("", null);
 
   void _setSearchContext(String context) {
     setState(() {
-      currentSearchContext = context;
+      searchContext = SearchContext(context, null);
     });
   }
 
   void _sendCommand(String commandKey) {
     print("Command pressed: $commandKey");
     HttpService.sendRequest("$scheme://$esp32IP/command?key=$commandKey");
+  }
+
+  Future<void> _sendCommandSequence(List<String> commandSequence) async {
+    for(var command in commandSequence) {
+      _sendCommand(command);
+      await Future.delayed(Duration(seconds: 1));
+    }
   }
 
   void _streamingSearch(String platform, String commandKey) {
@@ -50,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         return AlertDialog(
           backgroundColor: Colors.grey[900],
           title: Text(
-            "Search ${currentSearchContext ?? ""}",
+            "Search ${searchContext.platform ?? ""}",
             style: const TextStyle(color: Colors.white),
           ),
           content: TextField(
@@ -82,8 +89,9 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (searchString != null && searchString.trim().isNotEmpty) {
-      print("User searched for '$searchString' on $currentSearchContext");
-      keyboardService.searchNetflix(searchString);
+      print("User searched for '$searchString' on $searchContext.platform");
+      searchContext.searchCommandSequence = await keyboardService.searchNetflix(searchString);
+      _sendCommandSequence(searchContext.searchCommandSequence!);
     }
   }
 

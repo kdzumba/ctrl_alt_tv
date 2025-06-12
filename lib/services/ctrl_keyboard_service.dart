@@ -29,7 +29,7 @@ class CtrlKeyboardService {
       if(dRow < 0) commandSequence.addAll(List.filled(dRow.abs(), "UP"));
       if(dRow > 0) commandSequence.addAll(List.filled(dRow.abs(), "DOWN"));
 
-      commandSequence.add("OK");
+      commandSequence.add("SELECT");
       keyboard.setPosition(target);
     }
     return commandSequence;

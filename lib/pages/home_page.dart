@@ -1,3 +1,4 @@
+import "package:ctrl_alt_tv/services/ctrl_keyboard_service.dart";
 import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:ctrl_alt_tv/widgets/center_control.dart";
 import "package:ctrl_alt_tv/widgets/channel_control.dart";
@@ -21,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final esp32IP = "192.168.4.1";
   final scheme = "http";
+  final CtrlKeyboardService keyboardService = CtrlKeyboardService();
 
   String? currentSearchContext;
 
@@ -81,6 +83,7 @@ class _HomePageState extends State<HomePage> {
 
     if (searchString != null && searchString.trim().isNotEmpty) {
       print("User searched for '$searchString' on $currentSearchContext");
+      keyboardService.searchNetflix(searchString);
     }
   }
 

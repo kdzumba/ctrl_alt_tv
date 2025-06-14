@@ -8,8 +8,8 @@ class NetflixKeyboard extends Keyboard {
 
   NetflixKeyboard(): keyboards = [] {
     Map<String, Point>defaultLowerCaseKeyboard = {
-      "spaceBar": Point(0, 0),
-      "cancel": Point(0, 1),
+      " ": Point(0, 0),
+      "backspace": Point(0, 1),
       "a": Point(1, 0),
       "b": Point(1, 1),
       "c": Point(1, 2),
@@ -62,16 +62,4 @@ class NetflixKeyboard extends Keyboard {
   Point getCurrentPosition() {
     return currentPosition;
   }
-
-  @override
-  void moveLeft() => currentPosition = currentPosition - Point(1, 0);
-
-  @override
-  void moveRight() => currentPosition = currentPosition + Point(1, 0);
-
-  @override
-  void moveUp() => currentPosition = currentPosition + Point(0, 1);
-
-  @override
-  void moveDown() => currentPosition = currentPosition - Point(0, 1);
 }

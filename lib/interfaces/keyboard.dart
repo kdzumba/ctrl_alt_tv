@@ -7,8 +7,4 @@ abstract class Keyboard {
   List<KeyboardLayout> getKeyboards();
   Point getCurrentPosition();
   void setPosition(Point position) => currentPosition = position;
-  void moveLeft();
-  void moveRight();
-  void moveUp();
-  void moveDown();
 }

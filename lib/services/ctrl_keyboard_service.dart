@@ -2,10 +2,15 @@ import 'dart:math';
 
 import 'package:ctrl_alt_tv/interfaces/keyboard.dart';
 import 'package:ctrl_alt_tv/models/netflix_keyboard.dart';
+import 'package:ctrl_alt_tv/models/youtube_keyboard.dart';
 
 class CtrlKeyboardService {
   Future<List<String>> searchNetflix(String query) async {
     return _generateSearchSequence(query, NetflixKeyboard());
+  }
+
+  Future<List<String>> searchYouTube(String query) async {
+    return _generateSearchSequence(query, YoutubeKeyboard());
   }
 
   List<String> _generateSearchSequence(String searchString, Keyboard keyboard) {

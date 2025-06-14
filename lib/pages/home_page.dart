@@ -1,3 +1,4 @@
+import "package:ctrl_alt_tv/models/keyboard_input_platform.dart";
 import "package:ctrl_alt_tv/services/ctrl_keyboard_service.dart";
 import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:ctrl_alt_tv/widgets/center_control.dart";
@@ -24,9 +25,9 @@ class _HomePageState extends State<HomePage> {
   final esp32IP = "192.168.4.1";
   final scheme = "http";
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
-  SearchContext searchContext = SearchContext("", null);
+  SearchContext searchContext = SearchContext(KeyboardInputPlatform.defaultPlatform, null);
 
-  void _setSearchContext(String context) {
+  void _setSearchContext(KeyboardInputPlatform context) {
     setState(() {
       searchContext = SearchContext(context, null);
     });
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _streamingSearch(String platform, String commandKey) {
+  void _streamingSearch(KeyboardInputPlatform platform, String commandKey) {
     _setSearchContext(platform);
     _sendCommand(commandKey);
   }
@@ -89,8 +90,16 @@ class _HomePageState extends State<HomePage> {
     );
 
     if (searchString != null && searchString.trim().isNotEmpty) {
-      print("User searched for '$searchString' on $searchContext.platform");
-      searchContext.searchCommandSequence = await keyboardService.searchNetflix(searchString);
+      switch(searchContext.platform) {
+        case KeyboardInputPlatform.netflix:
+          searchContext.searchCommandSequence = await keyboardService.searchNetflix(searchString);
+          break;
+        case KeyboardInputPlatform.youTube:
+          searchContext.searchCommandSequence = await keyboardService.searchYouTube(searchString);
+        default:
+          searchContext.searchCommandSequence = [];
+      }
+
       _sendCommandSequence(searchContext.searchCommandSequence!);
     }
   }
@@ -184,14 +193,14 @@ class _HomePageState extends State<HomePage> {
               top: spacing.buttonSpacing,
             ),
             child: CtrlStreamingControls(
-              onNetflixPressed: () => _streamingSearch("Netflix", "NETFLIX"),
-              onYoutubePressed: () => _streamingSearch("YouTube", "YOUTUBE"),
+              onNetflixPressed: () => _streamingSearch(KeyboardInputPlatform.netflix, "NETFLIX"),
+              onYoutubePressed: () => _streamingSearch(KeyboardInputPlatform.youTube, "YOUTUBE"),
               onPrimeVideoPressed:
-                  () => _streamingSearch("Prime Video", "PRIME"),
+                  () => _streamingSearch(KeyboardInputPlatform.primeVideo, "PRIME"),
               onYoutubeMusicPressed:
-                  () => _streamingSearch("YouTube Music", "YOUTUBE_MUSIC"),
-              onShowmaxPressed: () => _streamingSearch("Showmax", "SHOWMAX"),
-              onDstvPressed: () => _streamingSearch("DSTV", "DSTV"),
+                  () => _streamingSearch(KeyboardInputPlatform.youtubeMusic, "YOUTUBE_MUSIC"),
+              onShowmaxPressed: () => _streamingSearch(KeyboardInputPlatform.showmax, "SHOWMAX"),
+              onDstvPressed: () => _streamingSearch(KeyboardInputPlatform.dSTV, "DSTV"),
             ),
           ),
         ],

@@ -19,7 +19,7 @@ class CtrlKeyboardService {
     Map<String, Point> keyboardMap = keyboard.getKeyboards()[0].keyboard;
 
     for(var char in searchString.toLowerCase().split("")) {
-      if(!keyboard.getKeyboards()[0].keyboard.containsKey(char)) {
+      if (!keyboard.getKeyboards()[0].keyboard.containsKey(char)) {
         continue;
       }
 
@@ -28,15 +28,17 @@ class CtrlKeyboardService {
       int dRow = target.x.toInt() - currentPosition.x.toInt();
       int dCol = target.y.toInt() - currentPosition.y.toInt();
 
-      if(dCol < 0) commandSequence.addAll(List.filled(dCol.abs(), "LEFT"));
-      if(dCol > 0) commandSequence.addAll(List.filled(dCol.abs(), "RIGHT"));
+      if (dCol < 0) commandSequence.addAll(List.filled(dCol.abs(), "LEFT"));
+      if (dCol > 0) commandSequence.addAll(List.filled(dCol.abs(), "RIGHT"));
 
-      if(dRow < 0) commandSequence.addAll(List.filled(dRow.abs(), "UP"));
-      if(dRow > 0) commandSequence.addAll(List.filled(dRow.abs(), "DOWN"));
+      if (dRow < 0) commandSequence.addAll(List.filled(dRow.abs(), "UP"));
+      if (dRow > 0) commandSequence.addAll(List.filled(dRow.abs(), "DOWN"));
 
       commandSequence.add("SELECT");
       keyboard.setPosition(target);
     }
+
+    print("Current Position: ${keyboard.getCurrentPosition()}");
     return commandSequence;
   }
 }

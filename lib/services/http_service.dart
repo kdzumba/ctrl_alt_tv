@@ -1,16 +1,14 @@
 import "package:http/http.dart" as http;
 
 class HttpService {
+  static final serverIP = "192.168.4.1";
+  static final scheme = "http";
+
   HttpService._();
 
-  static void sendRequest(url) async {
-    final parsedUrl = Uri.parse(url);
-    final response = await http.get(parsedUrl);
-
-    // if(response.statusCode == 200) {
-    //   print("Response body: ${response.body}");
-    // } else {
-    //   print("Request failed with status: ${response.statusCode}");
-    // }
+  static Future<void> sendRequest(commandKey) async {
+    final url = Uri.parse("$scheme://$serverIP/command?key=$commandKey");
+    print("Calling: $url");
+    await http.get(url);
   }
 }

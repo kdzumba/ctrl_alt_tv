@@ -1,19 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:ctrl_alt_tv/models/keyboard_input_platform.dart';
-import 'package:ctrl_alt_tv/services/ctrl_keyboard_service.dart';
-import 'package:ctrl_alt_tv/services/http_service.dart';
-import 'package:ctrl_alt_tv/widgets/center_control.dart';
-import 'package:ctrl_alt_tv/widgets/channel_control.dart';
-import 'package:ctrl_alt_tv/widgets/ctrl_icon_button.dart';
-import 'package:ctrl_alt_tv/widgets/ctrl_streaming_controls.dart';
-import 'package:ctrl_alt_tv/widgets/home_row.dart';
-import 'package:ctrl_alt_tv/widgets/mute_row.dart';
-import 'package:ctrl_alt_tv/widgets/power_source_control.dart';
-import 'package:ctrl_alt_tv/widgets/volume_control.dart';
-import '../models/search_context.dart';
-import '../theme/app_spacing.dart';
+import "package:ctrl_alt_tv/services/voice_service.dart";
+import "package:flutter/material.dart";
+import "package:wakelock_plus/wakelock_plus.dart";
+import "package:permission_handler/permission_handler.dart";
+
+import "package:ctrl_alt_tv/models/keyboard_input_platform.dart";
+import "package:ctrl_alt_tv/services/ctrl_keyboard_service.dart";
+import "package:ctrl_alt_tv/services/http_service.dart";
+import "package:ctrl_alt_tv/widgets/center_control.dart";
+import "package:ctrl_alt_tv/widgets/channel_control.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
+import "package:ctrl_alt_tv/widgets/ctrl_streaming_controls.dart";
+import "package:ctrl_alt_tv/widgets/home_row.dart";
+import "package:ctrl_alt_tv/widgets/mute_row.dart";
+import "package:ctrl_alt_tv/widgets/power_source_control.dart";
+import "package:ctrl_alt_tv/widgets/volume_control.dart";
+import "../models/search_context.dart";
+import "../theme/app_spacing.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,32 +25,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final esp32IP = "192.168.4.1";
-  final scheme = "http";
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
+  final VoiceService voiceService = VoiceService();
   SearchContext searchContext = SearchContext(KeyboardInputPlatform.defaultPlatform, null);
-
-  final stt.SpeechToText _speech = stt.SpeechToText();
 
   void _setSearchContext(KeyboardInputPlatform context) {
     setState(() {
-      print("Search Context is: " + context.toString());
+      print("Search Context is: ${context.toString().split(".").last}");
       searchContext = SearchContext(context, null);
     });
   }
 
   void _sendCommand(String commandKey) {
     print("Command pressed: $commandKey");
-    HttpService.sendRequest("$scheme://$esp32IP/command?key=$commandKey");
-  }
-
-  Future<void> _sendCommandSequence(List<String> commandSequence) async {
-    await WakelockPlus.enable();
-    for (var command in commandSequence) {
-      _sendCommand(command);
-      await Future.delayed(Duration(seconds: 1));
-    }
-    await WakelockPlus.disable();
+    HttpService.sendRequest(commandKey);
   }
 
   void _streamingSearch(KeyboardInputPlatform platform, String commandKey) {
@@ -110,33 +100,35 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _startSpeechToText() async {
-    bool available = await _speech.initialize();
+    var status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      status = await Permission.microphone.request();
+      if(!status.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Microphone permission denied"))
+        );
+        return;
+      }
+    }
+
+    bool available = await voiceService.init();
+
     if (available) {
-      _speech.listen(
-        onResult: (result) async {
-          final spokenText = result.recognizedWords;
-          if (spokenText.isNotEmpty) {
-            switch (searchContext.platform) {
-              case KeyboardInputPlatform.netflix:
-                searchContext.searchCommandSequence =
-                await keyboardService.searchNetflix(spokenText);
-                break;
-              case KeyboardInputPlatform.youTube:
-                searchContext.searchCommandSequence =
-                await keyboardService.searchYouTube(spokenText);
-                break;
-              default:
-                searchContext.searchCommandSequence = [];
-            }
-            _sendCommandSequence(searchContext.searchCommandSequence!);
-          }
-        },
-      );
+      voiceService.startListening();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Speech recognition not available")),
       );
     }
+  }
+
+  Future<void> _sendCommandSequence(List<String> commandSequence) async {
+    await WakelockPlus.enable();
+    for (var command in commandSequence) {
+      _sendCommand(command);
+      await Future.delayed(Duration(milliseconds: 500));
+    }
+    await WakelockPlus.disable();
   }
 
   @override
@@ -176,7 +168,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // Top buttons row: Mic (left) + Search (right)
           Row(
             children: [
               Padding(
@@ -202,7 +193,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          // Main controls row: Volume, Home/Mute, Channel
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: spacing.appMarginSpacing,

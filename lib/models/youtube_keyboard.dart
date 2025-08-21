@@ -1,3 +1,4 @@
+import "dart:ffi";
 import "dart:math";
 
 import "package:ctrl_alt_tv/interfaces/keyboard.dart";
@@ -56,5 +57,10 @@ class YoutubeKeyboard extends Keyboard {
   @override
   Point<num> getCurrentPosition() {
     return currentPosition;
+  }
+
+  @override
+  void reset() {
+    currentPosition = Point(0, 0);
   }
 }

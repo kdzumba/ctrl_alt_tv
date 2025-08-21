@@ -7,10 +7,10 @@ class HttpService {
     final parsedUrl = Uri.parse(url);
     final response = await http.get(parsedUrl);
 
-    if(response.statusCode == 200) {
-      print("Response body: ${response.body}");
-    } else {
-      print("Request failed with status: ${response.statusCode}");
-    }
+    // if(response.statusCode == 200) {
+    //   print("Response body: ${response.body}");
+    // } else {
+    //   print("Request failed with status: ${response.statusCode}");
+    // }
   }
 }

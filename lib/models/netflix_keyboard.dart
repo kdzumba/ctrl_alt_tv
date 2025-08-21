@@ -62,4 +62,9 @@ class NetflixKeyboard extends Keyboard {
   Point getCurrentPosition() {
     return currentPosition;
   }
+
+  @override
+  void reset() {
+    currentPosition = Point(1, 0);
+  }
 }

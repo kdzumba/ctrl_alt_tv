@@ -6,5 +6,6 @@ abstract class Keyboard {
   late Point currentPosition;
   List<KeyboardLayout> getKeyboards();
   Point getCurrentPosition();
+  void reset();
   void setPosition(Point position) => currentPosition = position;
 }

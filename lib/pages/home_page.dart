@@ -15,6 +15,7 @@ import "package:ctrl_alt_tv/widgets/mute_row.dart";
 import "package:ctrl_alt_tv/widgets/power_source_control.dart";
 import "package:ctrl_alt_tv/widgets/volume_control.dart";
 import "../models/search_context.dart";
+import "../services/native_voice_service.dart";
 import "../theme/app_spacing.dart";
 
 class HomePage extends StatefulWidget {
@@ -27,6 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
   final VoiceService voiceService = VoiceService();
+  final NativeVoiceService nativeVoiceService = NativeVoiceService();
   SearchContext searchContext = SearchContext(KeyboardInputPlatform.defaultPlatform, null);
 
   void _setSearchContext(KeyboardInputPlatform context) {
@@ -111,10 +113,10 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    bool available = await voiceService.init();
+    bool available = await nativeVoiceService.init();
 
     if (available) {
-      voiceService.startListening();
+      nativeVoiceService.startListening();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Speech recognition not available")),

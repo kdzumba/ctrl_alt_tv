@@ -2,7 +2,6 @@ import "package:ctrl_alt_tv/services/voice_service.dart";
 import "package:flutter/material.dart";
 import "package:wakelock_plus/wakelock_plus.dart";
 import "package:permission_handler/permission_handler.dart";
-
 import "package:ctrl_alt_tv/models/keyboard_input_platform.dart";
 import "package:ctrl_alt_tv/services/ctrl_keyboard_service.dart";
 import "package:ctrl_alt_tv/services/http_service.dart";
@@ -29,12 +28,12 @@ class _HomePageState extends State<HomePage> {
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
   final VoiceService voiceService = VoiceService();
   final NativeVoiceService nativeVoiceService = NativeVoiceService();
-  SearchContext searchContext = SearchContext(KeyboardInputPlatform.defaultPlatform, null);
+  KeyboardContext keyboardContext = KeyboardContext(KeyboardInputPlatform.TV, null);
 
-  void _setSearchContext(KeyboardInputPlatform context) {
+  void _setKeyboardContext(KeyboardInputPlatform platform) {
     setState(() {
-      print("Search Context is: ${context.toString().split(".").last}");
-      searchContext = SearchContext(context, null);
+      print("Search Context is: ${platform.toString().split(".").last}");
+      keyboardContext = KeyboardContext(platform, null);
     });
   }
 
@@ -44,26 +43,43 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _streamingSearch(KeyboardInputPlatform platform, String commandKey) {
-    _setSearchContext(platform);
+    _setKeyboardContext(platform);
     _sendCommand(commandKey);
   }
 
-  Future<void> _openSearchDialog() async {
-    final searchString = await showDialog<String>(
+  Future<void> _handleDialogQueryResult(String queryText) async {
+    if (queryText.trim().isNotEmpty) {
+      print("About to type: $queryText on the current keyboard");
+
+      switch (keyboardContext.platform) {
+        case KeyboardInputPlatform.netflix:
+          keyboardContext.searchCommandSequence = await keyboardService.searchNetflix(queryText);
+          break;
+        case KeyboardInputPlatform.youTube:
+          keyboardContext.searchCommandSequence = await keyboardService.searchYouTube(queryText);
+        default:
+          keyboardContext.searchCommandSequence = await keyboardService.typeOnTvKeyboard(queryText);
+      }
+      _sendCommandSequence(keyboardContext.searchCommandSequence!);
+    }
+  }
+
+  Future<void> _openInputDialog() async {
+    final queryText = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         String input = "";
         return AlertDialog(
           backgroundColor: Colors.grey[900],
           title: Text(
-            "Search ${searchContext.platform ?? ""}",
+            "Type On: ${keyboardContext.platform.toString().split(".").last}",
             style: const TextStyle(color: Colors.white),
           ),
           content: TextField(
             autofocus: true,
             style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(
-              hintText: "Enter search phrase",
+              hintText: "Enter Query Text",
               hintStyle: TextStyle(color: Colors.white54),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
@@ -78,27 +94,14 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, input),
-              child: const Text("Search"),
+              child: const Text("OK"),
             ),
           ],
         );
       },
     );
 
-    if (searchString != null && searchString.trim().isNotEmpty) {
-      switch (searchContext.platform) {
-        case KeyboardInputPlatform.netflix:
-          searchContext.searchCommandSequence =
-          await keyboardService.searchNetflix(searchString);
-          break;
-        case KeyboardInputPlatform.youTube:
-          searchContext.searchCommandSequence =
-          await keyboardService.searchYouTube(searchString);
-        default:
-          searchContext.searchCommandSequence = [];
-      }
-      _sendCommandSequence(searchContext.searchCommandSequence!);
-    }
+    await _handleDialogQueryResult(queryText!);
   }
 
   Future<void> _startSpeechToText() async {
@@ -190,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: CtrlIconButton(
                   icon: const Icon(Icons.search, color: Colors.white),
-                  onPressed: _openSearchDialog,
+                  onPressed: _openInputDialog,
                 ),
               ),
             ],

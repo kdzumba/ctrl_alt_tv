@@ -5,5 +5,5 @@ enum KeyboardInputPlatform{
   dSTV,
   showmax,
   youtubeMusic,
-  defaultPlatform
+  TV,
 }

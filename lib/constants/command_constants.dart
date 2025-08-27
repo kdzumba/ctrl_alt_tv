@@ -18,4 +18,5 @@ class VoiceCommands {
   static const String kGoToHome = "GO TO HOME";
   static const String kPause = "PAUSE";
   static const String kMute = "MUTE";
+  static const String kClear = "CLEAR";
 }

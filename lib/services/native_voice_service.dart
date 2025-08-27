@@ -54,6 +54,7 @@ class NativeVoiceService {
       VoiceCommands.kGoToHome: "HOME",
       VoiceCommands.kPause: "PAUSE",
       VoiceCommands.kMute: "MUTE",
+      VoiceCommands.kClear: "CLEAR"
     };
 
     final request = commandMap[command];

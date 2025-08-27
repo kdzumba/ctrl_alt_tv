@@ -1,8 +1,8 @@
 import 'package:ctrl_alt_tv/models/keyboard_input_platform.dart';
 
-class SearchContext {
+class KeyboardContext {
   KeyboardInputPlatform platform;
   List<String>? searchCommandSequence;
 
-  SearchContext(this.platform, this.searchCommandSequence);
+  KeyboardContext(this.platform, this.searchCommandSequence);
 }

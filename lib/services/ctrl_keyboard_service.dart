@@ -22,19 +22,19 @@ class CtrlKeyboardService {
     return _generateTraversalSequence(query, _youtubeKeyboard);
   }
 
-  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard) {
+  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard, {bool okAtTheEnd = false}) {
     List<String> commandSequence = [];
 
     Map<String, Point> keyboardMap = keyboard.getKeyboards()[0].keyboard;
 
-    for(var char in queryText.toLowerCase().split("")) {
-      if (!keyboard.getKeyboards()[0].keyboard.containsKey(char)) {
-        continue;
+    void moveToAndSelect(String key) {
+      if(!keyboardMap.containsKey(key)){
+        return;
       }
 
       var currentPosition = keyboard.getCurrentPosition();
       print("Current position: ${currentPosition.toString()}");
-      Point target = keyboardMap[char]!;
+      Point target = keyboardMap[key]!;
       int dRow = target.x.toInt() - currentPosition.x.toInt();
       int dCol = target.y.toInt() - currentPosition.y.toInt();
 
@@ -46,6 +46,14 @@ class CtrlKeyboardService {
 
       commandSequence.add("SELECT");
       keyboard.setPosition(target);
+    }
+
+    for(var char in queryText.toLowerCase().split("")) {
+      moveToAndSelect(char);
+    }
+
+    if (okAtTheEnd && keyboardMap.containsKey("OK")) {
+      moveToAndSelect("OK");
     }
 
     keyboard.setCurrentQueryText(queryText);

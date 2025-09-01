@@ -5,6 +5,8 @@ import 'package:ctrl_alt_tv/models/default_keyboard.dart';
 import 'package:ctrl_alt_tv/models/netflix_keyboard.dart';
 import 'package:ctrl_alt_tv/models/youtube_keyboard.dart';
 
+import '../models/key_area.dart';
+
 class CtrlKeyboardService {
   final Keyboard _netflixKeyboard = NetflixKeyboard();
   final Keyboard _tvKeyboard = DefaultKeyboard();
@@ -22,10 +24,10 @@ class CtrlKeyboardService {
     return _generateTraversalSequence(query, _youtubeKeyboard);
   }
 
-  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard, {bool okAtTheEnd = false}) {
+  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard, {bool okAtTheEnd = true}) {
     List<String> commandSequence = [];
 
-    Map<String, Point> keyboardMap = keyboard.getKeyboards()[0].keyboard;
+    Map<String, KeyArea> keyboardMap = keyboard.getKeyboards()[0].keyboard;
 
     void moveToAndSelect(String key) {
       if(!keyboardMap.containsKey(key)){
@@ -34,7 +36,8 @@ class CtrlKeyboardService {
 
       var currentPosition = keyboard.getCurrentPosition();
       print("[CTRL_ALT_TV]: Current position: ${currentPosition.toString()}");
-      Point target = keyboardMap[key]!;
+      KeyArea keyArea = keyboardMap[key]!;
+      Point<int> target = keyArea.center;
       int dRow = target.x.toInt() - currentPosition.x.toInt();
       int dCol = target.y.toInt() - currentPosition.y.toInt();
 

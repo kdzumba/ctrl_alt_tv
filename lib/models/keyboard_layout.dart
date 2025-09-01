@@ -1,6 +1,6 @@
-import 'dart:math';
+import 'key_area.dart';
 
 class KeyboardLayout {
-  Map<String, Point> keyboard;
+  Map<String, KeyArea> keyboard;
   KeyboardLayout(this.keyboard);
 }

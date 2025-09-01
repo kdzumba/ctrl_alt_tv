@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _handleDialogQueryResult(String queryText) async {
     if (queryText.trim().isNotEmpty) {
-      print("[CTRL_ALT_TV]: About to type: $queryText on the current keyboard");
+      print("About to type: $queryText on the current keyboard");
 
       switch (keyboardContext.platform) {
         case KeyboardInputPlatform.netflix:

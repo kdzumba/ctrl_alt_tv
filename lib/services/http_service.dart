@@ -8,7 +8,7 @@ class HttpService {
 
   static Future<void> sendRequest(commandKey) async {
     final url = Uri.parse("$scheme://$serverIP/command?key=$commandKey");
-    print("Calling: $url");
+    print("[CTRL_ALT_TV]: Calling: $url");
     await http.get(url);
   }
 }

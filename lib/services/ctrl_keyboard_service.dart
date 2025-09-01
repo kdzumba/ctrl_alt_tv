@@ -33,7 +33,7 @@ class CtrlKeyboardService {
       }
 
       var currentPosition = keyboard.getCurrentPosition();
-      print("Current position: ${currentPosition.toString()}");
+      print("[CTRL_ALT_TV]: Current position: ${currentPosition.toString()}");
       Point target = keyboardMap[key]!;
       int dRow = target.x.toInt() - currentPosition.x.toInt();
       int dCol = target.y.toInt() - currentPosition.y.toInt();
@@ -57,7 +57,7 @@ class CtrlKeyboardService {
     }
 
     keyboard.setCurrentQueryText(queryText);
-    print("Current Position: ${keyboard.getCurrentPosition()}");
+    print("[CTRL_ALT_TV]: Current Position: ${keyboard.getCurrentPosition()}");
     return commandSequence;
   }
 }

@@ -37,13 +37,13 @@ class VoiceService {
         final recognized = object["text"].toString().trim().toUpperCase();
         if(recognized.isNotEmpty) {
           command = recognized;
-          print("Final command detected: $command");
+          print("[CTRL_ALT_TV]: Final command detected: $command");
           await handleCommand();
         }
       });
 
     } catch(e){
-      print("Failed to initialize Vosk: $e");
+      print("[CTRL_ALT_TV]: Failed to initialize Vosk: $e");
       isActive = false;
     }
     return isActive;
@@ -85,7 +85,7 @@ class VoiceService {
       final content = await rootBundle.loadString('assets/grammar/commands.txt');
       return content.split('\n').where((line) => line.trim().isNotEmpty).toList();
     } catch (e) {
-      print("Error loading grammar file: $e");
+      print("[CTRL_ALT_TV]: Error loading grammar file: $e");
       return _loadCustomGrammar(); // fallback to default
     }
   }
@@ -128,7 +128,7 @@ class VoiceService {
     if (request != null) {
       await HttpService.sendRequest(request);
     } else {
-      print("Voice Command Not Recognized");
+      print("[CTRL_ALT_TV]: Voice Command Not Recognized");
     }
   }
 }

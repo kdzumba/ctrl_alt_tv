@@ -23,7 +23,7 @@ class NativeVoiceService {
           final detectedCommand = result.recognizedWords.trim().toUpperCase();
           if (detectedCommand.isNotEmpty) {
             command = detectedCommand;
-            print("Final command detected: $command");
+            print("[CTRL_ALT_TV]: Final command detected: $command");
             handleCommand();
           }
         }
@@ -61,7 +61,7 @@ class NativeVoiceService {
     if (request != null) {
       await HttpService.sendRequest(request);
     } else {
-      print("Voice Command Not Recognized");
+      print("[CTRL_ALT_TV]: Voice Command Not Recognized");
     }
   }
 }

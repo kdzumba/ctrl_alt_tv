@@ -32,13 +32,13 @@ class _HomePageState extends State<HomePage> {
 
   void _setKeyboardContext(KeyboardInputPlatform platform) {
     setState(() {
-      print("Search Context is: ${platform.toString().split(".").last}");
+      print("[CTRL_ALT_TV]: Search Context is: ${platform.toString().split(".").last}");
       keyboardContext = KeyboardContext(platform, null);
     });
   }
 
   void _sendCommand(String commandKey) {
-    print("Command pressed: $commandKey");
+    print("[CTRL_ALT_TV]: Command pressed: $commandKey");
     HttpService.sendRequest(commandKey);
   }
 
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _handleDialogQueryResult(String queryText) async {
     if (queryText.trim().isNotEmpty) {
-      print("About to type: $queryText on the current keyboard");
+      print("[CTRL_ALT_TV]: About to type: $queryText on the current keyboard");
 
       switch (keyboardContext.platform) {
         case KeyboardInputPlatform.netflix:

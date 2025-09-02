@@ -1,7 +1,7 @@
 import "package:http/http.dart" as http;
 
 class HttpService {
-  static final serverIP = "192.168.114.196";
+  static final serverIP = "192.168.1.70";
   static final scheme = "http";
 
   HttpService._();

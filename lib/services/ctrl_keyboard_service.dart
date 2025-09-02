@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:ctrl_alt_tv/interfaces/keyboard.dart';
 import 'package:ctrl_alt_tv/models/default_keyboard.dart';
 import 'package:ctrl_alt_tv/models/netflix_keyboard.dart';
+import 'package:ctrl_alt_tv/models/showmax_keyboard.dart';
 import 'package:ctrl_alt_tv/models/youtube_keyboard.dart';
 
 import '../models/key_area.dart';
@@ -11,20 +12,25 @@ class CtrlKeyboardService {
   final Keyboard _netflixKeyboard = NetflixKeyboard();
   final Keyboard _tvKeyboard = DefaultKeyboard();
   final Keyboard _youtubeKeyboard = YoutubeKeyboard();
+  final Keyboard _showmaxKeyboard = ShowmaxKeyboard();
 
   Future<List<String>> searchNetflix(String query) async {
     return _generateTraversalSequence(query, _netflixKeyboard);
   }
 
   Future<List<String>> typeOnTvKeyboard(String text) async {
-    return _generateTraversalSequence(text, _tvKeyboard);
+    return _generateTraversalSequence(text, _tvKeyboard, okAtTheEnd: true);
   }
 
   Future<List<String>> searchYouTube(String query) async {
     return _generateTraversalSequence(query, _youtubeKeyboard);
   }
 
-  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard, {bool okAtTheEnd = true}) {
+  Future<List<String>> searchShowmax(String query) async {
+    return _generateTraversalSequence(query, _showmaxKeyboard);
+  }
+
+  List<String> _generateTraversalSequence(String queryText, Keyboard keyboard, {bool okAtTheEnd = false}) {
     List<String> commandSequence = [];
 
     Map<String, KeyArea> keyboardMap = keyboard.getKeyboards()[0].keyboard;
@@ -36,8 +42,11 @@ class CtrlKeyboardService {
 
       var currentPosition = keyboard.getCurrentPosition();
       print("[CTRL_ALT_TV]: Current position: ${currentPosition.toString()}");
+      print("[CTRL_ALT_TV]: Key: $key");
+
       KeyArea keyArea = keyboardMap[key]!;
       Point<int> target = keyArea.center;
+      print("[CTRL_ALT_TV]: Center: ${target.toString()}");
       int dRow = target.x.toInt() - currentPosition.x.toInt();
       int dCol = target.y.toInt() - currentPosition.y.toInt();
 
@@ -57,6 +66,7 @@ class CtrlKeyboardService {
 
     if (okAtTheEnd && keyboardMap.containsKey("OK")) {
       moveToAndSelect("OK");
+      keyboard.reset();
     }
 
     keyboard.setCurrentQueryText(queryText);

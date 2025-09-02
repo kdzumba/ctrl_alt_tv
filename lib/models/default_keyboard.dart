@@ -122,6 +122,6 @@ class DefaultKeyboard extends Keyboard {
 
   @override
   void reset() {
-
+    currentPosition = Point(0, 0);
   }
 }

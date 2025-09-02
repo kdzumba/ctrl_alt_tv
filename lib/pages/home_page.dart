@@ -28,11 +28,16 @@ class _HomePageState extends State<HomePage> {
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
   final VoiceService voiceService = VoiceService();
   final NativeVoiceService nativeVoiceService = NativeVoiceService();
-  KeyboardContext keyboardContext = KeyboardContext(KeyboardInputPlatform.TV, null);
+  KeyboardContext keyboardContext = KeyboardContext(
+    KeyboardInputPlatform.TV,
+    null,
+  );
 
   void _setKeyboardContext(KeyboardInputPlatform platform) {
     setState(() {
-      print("[CTRL_ALT_TV]: Search Context is: ${platform.toString().split(".").last}");
+      print(
+        "[CTRL_ALT_TV]: Search Context is: ${platform.toString().split(".").last}",
+      );
       keyboardContext = KeyboardContext(platform, null);
     });
   }
@@ -53,12 +58,20 @@ class _HomePageState extends State<HomePage> {
 
       switch (keyboardContext.platform) {
         case KeyboardInputPlatform.netflix:
-          keyboardContext.searchCommandSequence = await keyboardService.searchNetflix(queryText);
+          keyboardContext.searchCommandSequence = await keyboardService
+              .searchNetflix(queryText);
           break;
         case KeyboardInputPlatform.youTube:
-          keyboardContext.searchCommandSequence = await keyboardService.searchYouTube(queryText);
+          keyboardContext.searchCommandSequence = await keyboardService
+              .searchYouTube(queryText);
+          break;
+        case KeyboardInputPlatform.showmax:
+          keyboardContext.searchCommandSequence = await keyboardService
+              .searchShowmax(queryText);
+          break;
         default:
-          keyboardContext.searchCommandSequence = await keyboardService.typeOnTvKeyboard(queryText);
+          keyboardContext.searchCommandSequence = await keyboardService
+              .typeOnTvKeyboard(queryText);
       }
       _sendCommandSequence(keyboardContext.searchCommandSequence!);
     }
@@ -108,9 +121,9 @@ class _HomePageState extends State<HomePage> {
     var status = await Permission.microphone.status;
     if (!status.isGranted) {
       status = await Permission.microphone.request();
-      if(!status.isGranted) {
+      if (!status.isGranted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Microphone permission denied"))
+          const SnackBar(content: Text("Microphone permission denied")),
         );
         return;
       }
@@ -199,9 +212,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: spacing.appMarginSpacing,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: spacing.appMarginSpacing),
             child: Row(
               children: [
                 VolumeControlsWidget(
@@ -238,18 +249,31 @@ class _HomePageState extends State<HomePage> {
               top: spacing.buttonSpacing,
             ),
             child: CtrlStreamingControls(
-              onNetflixPressed: () =>
-                  _streamingSearch(KeyboardInputPlatform.netflix, "NETFLIX"),
-              onYoutubePressed: () =>
-                  _streamingSearch(KeyboardInputPlatform.youTube, "YOUTUBE"),
-              onPrimeVideoPressed: () =>
-                  _streamingSearch(KeyboardInputPlatform.primeVideo, "PRIME"),
-              onDefaultPressed: () =>
-                  _setKeyboardContext(KeyboardInputPlatform.TV), // Doesn't have YouTube Music, let's use it for reset
-              onShowmaxPressed: () =>
-                  _streamingSearch(KeyboardInputPlatform.showmax, "SHOWMAX"),
-              onDstvPressed: () =>
-                  _streamingSearch(KeyboardInputPlatform.dSTV, "DSTV"),
+              onNetflixPressed:
+                  () => _streamingSearch(
+                    KeyboardInputPlatform.netflix,
+                    "NETFLIX",
+                  ),
+              onYoutubePressed:
+                  () => _streamingSearch(
+                    KeyboardInputPlatform.youTube,
+                    "YOUTUBE",
+                  ),
+              onPrimeVideoPressed:
+                  () => _streamingSearch(
+                    KeyboardInputPlatform.primeVideo,
+                    "PRIME",
+                  ),
+              onDefaultPressed:
+                  () => _setKeyboardContext(KeyboardInputPlatform.TV),
+              // Doesn't have YouTube Music, let's use it for reset
+              onShowmaxPressed:
+                  () => _streamingSearch(
+                    KeyboardInputPlatform.showmax,
+                    "SHOWMAX",
+                  ),
+              onDstvPressed:
+                  () => _streamingSearch(KeyboardInputPlatform.dSTV, "DSTV"),
             ),
           ),
         ],

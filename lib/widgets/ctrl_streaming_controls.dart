@@ -7,7 +7,7 @@ import "ctrl_icon_button.dart";
 class CtrlStreamingControls extends StatelessWidget{
   final VoidCallback onNetflixPressed;
   final VoidCallback onYoutubePressed;
-  final VoidCallback onYoutubeMusicPressed;
+  final VoidCallback onDefaultPressed;
   final VoidCallback onPrimeVideoPressed;
   final VoidCallback onShowmaxPressed;
   final VoidCallback onDstvPressed;
@@ -16,7 +16,7 @@ class CtrlStreamingControls extends StatelessWidget{
     super.key,
     required this.onNetflixPressed,
     required this.onYoutubePressed,
-    required this.onYoutubeMusicPressed,
+    required this.onDefaultPressed,
     required this.onPrimeVideoPressed,
     required this.onShowmaxPressed,
     required this.onDstvPressed
@@ -74,7 +74,7 @@ class CtrlStreamingControls extends StatelessWidget{
                   ),
                   child: CtrlIconButton(
                     backgroundColor: Colors.white,
-                    onPressed: onYoutubeMusicPressed,
+                    onPressed: onDefaultPressed,
                     icon: SvgPicture.asset(
                       "assets/icons/icons8-youtube-music.svg",
                       height: 32,

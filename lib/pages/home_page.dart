@@ -244,9 +244,8 @@ class _HomePageState extends State<HomePage> {
                   _streamingSearch(KeyboardInputPlatform.youTube, "YOUTUBE"),
               onPrimeVideoPressed: () =>
                   _streamingSearch(KeyboardInputPlatform.primeVideo, "PRIME"),
-              onYoutubeMusicPressed: () =>
-                  _streamingSearch(
-                      KeyboardInputPlatform.youtubeMusic, "YOUTUBE_MUSIC"),
+              onDefaultPressed: () =>
+                  _setKeyboardContext(KeyboardInputPlatform.TV), // Doesn't have YouTube Music, let's use it for reset
               onShowmaxPressed: () =>
                   _streamingSearch(KeyboardInputPlatform.showmax, "SHOWMAX"),
               onDstvPressed: () =>

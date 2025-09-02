@@ -57,9 +57,25 @@ class NativeVoiceService {
       VoiceCommands.kClear: "CLEAR"
     };
 
-    final request = commandMap[command];
+    int count = 1;
+    String action = command;
+
+    if (command.contains('*')) {
+      final parts = command.split('*');
+      action = parts[0].trim(); // e.g., "MOVE RIGHT"
+      final parsedCount = int.tryParse(parts[1].trim());
+      if (parsedCount != null && parsedCount > 0) {
+        count = parsedCount;
+      }
+    }
+
+    final request = commandMap[action];
     if (request != null) {
-      await HttpService.sendRequest(request);
+      print("[CTRL_ALT_TV]: Sending '$request' x $count");
+      for(int i = 0; i < count; i++) {
+        HttpService.sendRequest(request);
+        await Future.delayed(Duration(milliseconds: 500));
+      }
     } else {
       print("[CTRL_ALT_TV]: Voice Command Not Recognized");
     }

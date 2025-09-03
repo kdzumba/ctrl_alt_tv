@@ -17,8 +17,8 @@ class AppSpacing extends ThemeExtension<AppSpacing> {
   @override
   AppSpacing copyWith({double? small, double? medium, double? large}) {
     return AppSpacing(
-      buttonSpacing: small ?? this.buttonSpacing,
-      appMarginSpacing: medium ?? this.appMarginSpacing,
+      buttonSpacing: small ?? buttonSpacing,
+      appMarginSpacing: medium ?? appMarginSpacing,
       large: large ?? this.large
     );
   }

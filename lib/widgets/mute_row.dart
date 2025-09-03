@@ -1,5 +1,4 @@
 import "package:ctrl_alt_tv/widgets/ctrl_icon_button.dart";
-import "package:ctrl_alt_tv/services/http_service.dart";
 import "package:ctrl_alt_tv/widgets/ctrl_text_button.dart";
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";

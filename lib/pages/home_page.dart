@@ -1,6 +1,5 @@
-import "package:ctrl_alt_tv/services/voice_service.dart";
 import "package:flutter/material.dart";
-import "package:wakelock_plus/wakelock_plus.dart";
+// import "package:wakelock_plus/wakelock_plus.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:ctrl_alt_tv/models/keyboard_input_platform.dart";
 import "package:ctrl_alt_tv/services/ctrl_keyboard_service.dart";
@@ -26,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final CtrlKeyboardService keyboardService = CtrlKeyboardService();
-  final VoiceService voiceService = VoiceService();
+  // final VoiceService voiceService = VoiceService();
   final NativeVoiceService nativeVoiceService = NativeVoiceService();
   KeyboardContext keyboardContext = KeyboardContext(
     KeyboardInputPlatform.TV,
@@ -141,12 +140,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _sendCommandSequence(List<String> commandSequence) async {
-    await WakelockPlus.enable();
+    // await WakelockPlus.enable();
     for (var command in commandSequence) {
       _sendCommand(command);
       await Future.delayed(Duration(milliseconds: 500));
     }
-    await WakelockPlus.disable();
+    // await WakelockPlus.disable();
   }
 
   @override

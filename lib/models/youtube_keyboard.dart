@@ -1,4 +1,3 @@
-import "dart:ffi";
 import "dart:math";
 
 import "package:ctrl_alt_tv/interfaces/keyboard.dart";

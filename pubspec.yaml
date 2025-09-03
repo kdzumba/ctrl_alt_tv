@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.9
 
-  wakelock_plus: ^1.3.2
+#  wakelock_plus: ^1.3.2
   speech_to_text: ^7.3.0
   provider: ^6.1.2
   cupertino_icons: ^1.0.8
@@ -20,7 +20,7 @@ dependencies:
 
   font_awesome_flutter: ^10.6.0
   permission_handler: ^11.0.0
-  vosk_flutter_2: ^1.0.5
+#  vosk_flutter_2: ^1.0.5
   record: ^6.1.1
 
 dev_dependencies:
@@ -38,4 +38,4 @@ flutter:
     - assets/icons/youtube-6.svg
     - assets/icons/showmax-logo-vector.svg
     - assets/icons/dstv-logo.svg
-    - assets/models/vosk-model-small-en-us-0.15.zip
+#    - assets/models/vosk-model-small-en-us-0.15.zip
